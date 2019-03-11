@@ -15,6 +15,7 @@ echo
 [ ! -f db.json ] && cp db_seed.json db.json
 
 LAST_ID=`jq '.posts' db.json | tail -3 | awk '{print $2; exit}'`
+[[ $LAST_ID == *"Post"* ]] && LAST_ID=3
 echo -e "\nLAST_ID is $LAST_ID\n"
 
 #-----
