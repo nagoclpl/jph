@@ -1,4 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+#---------------------------------------------------------------------------------
+# test.sh
+#---------------------------------------------------------------------------------
+# Please go through https://jsonplaceholder.typicode.com/ if you haven't already
+#---------------------------------------------------------------------------------
 
 nc -zv localhost 3000 >/dev/null 2>&1
 
@@ -9,17 +15,13 @@ if [ $? -ne 0 ]; then
 fi
 
 curl() { /usr/local/opt/curl/bin/curl "$@"; echo; }
-
 [ ! -f db.json ] && cp db_seed.json db.json
-
-# LAST_ID=`jq '.posts' db.json | tail -3 | awk '{print $2; exit}'`
-# [[ $LAST_ID == *"Post"* ]] && LAST_ID=3
-let LAST_ID=`jq '.posts | reverse[0].id' db.json`
-echo -e "\nLAST_ID is $LAST_ID\n"
 
 #-----
 # GET
 #-----
+let LAST_ID=`jq '.posts | reverse[0].id' db.json`
+echo -e "\nLAST_ID is $LAST_ID\n"
 for POST_ID in `seq 1 $LAST_ID`; do
   echo -e "GET for POST_ID: $POST_ID\n-----------------------"
   curl localhost:3000/posts/$POST_ID
