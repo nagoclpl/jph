@@ -10,12 +10,11 @@ fi
 
 curl() { /usr/local/opt/curl/bin/curl "$@"; echo; }
 
-echo
-
 [ ! -f db.json ] && cp db_seed.json db.json
 
-LAST_ID=`jq '.posts' db.json | tail -3 | awk '{print $2; exit}'`
-[[ $LAST_ID == *"Post"* ]] && LAST_ID=3
+# LAST_ID=`jq '.posts' db.json | tail -3 | awk '{print $2; exit}'`
+# [[ $LAST_ID == *"Post"* ]] && LAST_ID=3
+let LAST_ID=`jq '.posts | reverse[0].id' db.json`
 echo -e "\nLAST_ID is $LAST_ID\n"
 
 #-----
@@ -30,7 +29,9 @@ done
 #------
 # POST
 #------
+let NEXT_ID=$LAST_ID+1
+echo -e "NEXT_ID is $NEXT_ID\n"
 echo -e "POST\n-----------------------"
-curl -d '{ "id": 4, "title": "Post 4" }' localhost:3000/posts
+curl -d "{ \"id\": $NEXT_ID, \"title\": \"Post $NEXT_ID\" }" localhost:3000/posts
 
 echo
