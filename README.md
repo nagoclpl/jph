@@ -4,8 +4,8 @@
 
 Run local json server in a terminal window -
 
-```json-server --watch db.json```
+```json-server --watch data.json```
 
-Robot users.robot -
+Run users_local.sh (it has the ```robot users_local.robot``` line within it) in another terminal window -
 
-```robot users.robot```
+```./users_local.sh```
