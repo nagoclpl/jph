@@ -9,3 +9,7 @@ Run local json server in a terminal window -
 Test from another terminal window -
 
 ```./test.sh```
+
+Robot users.robot -
+
+```robot users.robot```
