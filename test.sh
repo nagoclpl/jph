@@ -15,7 +15,7 @@ if [ $? -ne 0 ]; then
 fi
 
 curl() { /usr/local/opt/curl/bin/curl "$@"; echo; }
-[ ! -f db.json ] && cp db_seed.json db.json
+[ ! -f db.json ] && cp data.json db.json
 
 #-----
 # GET
@@ -34,6 +34,6 @@ done
 let NEXT_ID=$LAST_ID+1
 echo -e "NEXT_ID is $NEXT_ID\n"
 echo -e "POST\n-----------------------"
-curl -d "{ \"id\": $NEXT_ID, \"title\": \"Post $NEXT_ID\" }" localhost:3000/posts
+curl -d '' localhost:3000/posts
 
 echo
