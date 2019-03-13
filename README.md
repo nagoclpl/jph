@@ -13,7 +13,7 @@ Refer -
 
 ## Steps
 
-If you want to test with local json server (recommended), then do this -
+If you want to test with local json server (highly recommended), then do this -
 
 ```
 cd
