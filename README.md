@@ -42,5 +42,4 @@ While this README speaks about "users", we can easily test with other entities l
 2. comments
 3. albums
 4. photos
-5. users
-6. todos
+5. todos
