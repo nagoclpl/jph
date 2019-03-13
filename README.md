@@ -11,6 +11,10 @@ Refer -
 2. https://jsonplaceholder.typicode.com/
 3. https://github.com/typicode/json-server
 
+## Prerequisites
+
+- To run Local JSON Server, you need node. You can install node on Mac using `brew install node`
+
 ## Steps
 
 If you want to test with local json server (highly recommended), then do this -
