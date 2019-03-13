@@ -23,7 +23,8 @@ If you want to test with local json server (highly recommended), then do this -
 cd
 git clone https://github.com/typicode/jsonplaceholder.git
 cd jsonplaceholder
-node index.js
+npm install # just a one time thing
+npm start   # whenever you want to start the server
 ```
 
 You should have a running local json server listening on port 3000 now.
