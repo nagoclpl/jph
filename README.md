@@ -3,7 +3,7 @@
 You can test with either of these -
 
 1. Remote JSON Server
-2. Local JSON Server
+2. Local JSON Server - Highly Recommended!
 
 Refer -
 
