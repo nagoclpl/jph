@@ -1,5 +1,3 @@
-
-
 *** Settings ***
 Library         REST    http://localhost:3000
 Documentation   Test data can be read from variables and files.
@@ -17,11 +15,9 @@ Documentation   Test data can be read from variables and files.
 ...             The persistence of the created instances is the test suite.
 ...             Use keyword `Rest instances` to output the created instances.
 
-
 *** Variables ***
 ${json}         { "id": 11, "name": "Gil Alexander" }
 &{dict}         name=Julie Langford
-
 
 *** Test Cases ***
 GET an existing user, notice how the schema gets more accurate
@@ -43,7 +39,7 @@ GET existing users, use JSONPath for very short but powerful queries
 POST with valid params to create a new user, can be output to a file
     POST        /users                    ${json}
     Integer     response status           201
-    [Teardown]  Output  response body     ${OUTPUTDIR}/new_user.demo.json
+    [Teardown]  Output  response body     new_user.demo.json
 
 PUT with valid params to update the existing user, values matter here
     PUT         /users/2                  { "isCoding": true }
@@ -66,4 +62,4 @@ PATCH with valid params, reusing response properties as a new payload
 DELETE the existing successfully, save the history of all requests
     DELETE      /users/6                  # status can be any of the below
     Integer     response status           200    202     204
-    Rest instances  ${OUTPUTDIR}/all.demo.json  # all the instances so far
+    Rest instances  all.demo.json         # all the instances so far

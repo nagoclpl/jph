@@ -10,9 +10,15 @@ if [ -d jsonplaceholder ]; then (cd jsonplaceholder; git pull)
 else git clone https://github.com/typicode/jsonplaceholder.git; fi
 echo -e "\nTrying with users.robot which uses remote json server\n"; robot users.robot
 
+exit
+
 echo -e "==============================================================================\n"
 echo -e "And now trying with users_local.robot which uses local json server\n"
-sed "s|https://jsonplaceholder.typicode.com|http://localhost:3000|" users.robot > users_local.robot
+sed "
+  s|https://jsonplaceholder.typicode.com|http://localhost:3000|
+  s|new_user.demo.json|newer_user.demo.json|
+  s|Gil Alexander|Jil Alexander|
+" users.robot > users_local.robot
 nc -zv localhost 3000 >/dev/null 2>&1
 
 if [ $? -eq 0 ]; then robot users_local.robot; else
