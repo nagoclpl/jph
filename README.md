@@ -26,7 +26,7 @@ You should have a running local json server listening on port 3000 now.
 
 In another terminal window -
 
-Run users_local.sh (it has the ```robot users_local.robot``` line within it) in another terminal window -
+Run users_local.sh (it has the ```robot users_local.robot``` line within it) -
 
 ```./users_local.sh```
 
