@@ -4,6 +4,6 @@
 
 export FLASK_ENV=development
 
-export FLASK_APP=hw.py
+export FLASK_APP=parse.py
 
 flask run
