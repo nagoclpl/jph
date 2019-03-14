@@ -26,6 +26,7 @@ GET an existing user, notice how the schema gets more accurate
     Object      response body             # values are fully optional
     Integer     response body id          1
     String      response body name        Leanne Graham
+    Integer     response status           200
     [Teardown]  Output                    # note the updated response schema
 
 GET existing users, use JSONPath for very short but powerful queries
@@ -34,6 +35,7 @@ GET existing users, use JSONPath for very short but powerful queries
     Integer     $[0].id                   1           # first id is 1
     String      $[0]..lat                 -37.3159    # any matching child
     Integer     $..id                     maximum=5   # multiple matches
+    Integer     response status           200
     [Teardown]  Output  $[*].email        # outputs all emails as an array
 
 POST with valid params to create a new user, can be output to a file
@@ -50,6 +52,7 @@ PUT with valid params to update the existing user, values matter here
     String      response body pockets     ${EMPTY}
     Number      response body money       0.02
     Missing     response body moving      # fails if property moving exists
+    Integer     response status           200
 
 PATCH with valid params, reusing response properties as a new payload
     &{res}=     GET   /users/3
@@ -58,6 +61,7 @@ PATCH with valid params, reusing response properties as a new payload
     String      $.name                    Clementine Bauch
     PATCH       /users/5                  ${dict}
     String      $.name                    ${dict.name}
+    Integer     response status           200
 
 DELETE the existing successfully, save the history of all requests
     DELETE      /users/6                  # status can be any of the below
