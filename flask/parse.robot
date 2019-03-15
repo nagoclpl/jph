@@ -96,3 +96,9 @@ POST "[{}]" to check if it is wellformed/malformed
   &{data}=    Evaluate     json.loads($success_string)    json
   Should be equal  &{data}[status]  success
 
+POST "[{a}]" to check if it is wellformed/malformed
+  POST        /parse                   { "s": "[{a}]" }
+  Integer     response status          200
+  &{data}=    Evaluate     json.loads($success_string)    json
+  Should be equal  &{data}[status]  success
+
