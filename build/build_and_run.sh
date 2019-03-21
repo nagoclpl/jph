@@ -5,6 +5,7 @@
 let ec=0
 
 panic() {
+  rm -f src/.dockerignore
   echo -e "\n$1\n"
   let ec=$ec+1
   exit $ec
@@ -35,4 +36,4 @@ docker build -t thedockguy/gohw src; [ $? -ne 0 ] && panic "Docker Build Failed"
 
 docker push thedockguy/gohw; [ $? -ne 0 ] && panic "Docker Push Failed"; echo
 
-docker run thedockguy/gohw; [ $? -ne 0 ] && panic "Docker Run Failed"; echo
+docker run thedockguy/gohw; [ $? -ne 0 ] && panic "Docker Run Failed" || rm -f src/.dockerignore; echo
