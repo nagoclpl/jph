@@ -6,6 +6,6 @@ echo -e "\nFiles in Container's app dir ..."
 
 echo; ls
 
-echo; go run hello_world.go
-
 echo; python -V
+
+echo; [ -f hello_world.go ] && go run hello_world.go

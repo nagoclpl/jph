@@ -26,8 +26,13 @@ task del(dependsOn: chk) {
   delete 'work'
 }
 
-task copy(type: Copy, dependsOn: del) {
-  from 'src'
+task copyCommon(type: Copy, dependsOn: del) {
+  from 'common'
+  into 'work'
+}
+
+task copy(type: Copy, dependsOn: copyCommon) {
+  if (prod=='yes') from 'src' else from 'test'
   into 'work'
   include 'Dockerfile'
   include 'run.sh'
