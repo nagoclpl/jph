@@ -44,13 +44,13 @@ task copy(type: Copy, dependsOn: copyCommon) {
 }
 
 task lbld(type: Exec, dependsOn: copy) {
-  commandLine 'go', 'build', 'work/hello_world.go'
+  if (prod=='yes') commandLine 'go', 'build', 'work/hello_world.go' else commandLine 'date'
     doFirst { println '=== start go build ===' }
   doLast { println '===  end  go build ===' }
 }
 
 task lrun(type: Exec, dependsOn: lbld) {
-  commandLine './hello_world'
+  if (prod=='yes') commandLine './hello_world' else commandLine 'date'
     doFirst { println '=== start running ===' }
   doLast { println '===  end  running ===' }
 }
