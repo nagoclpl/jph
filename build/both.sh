@@ -35,6 +35,6 @@ echo
 
 ./gradlew -Pprod=no -Prepo=thedockguy/gohw start $1
 
-echo; ls -l work hello_world; echo
+echo; ls -l work; echo
 
-rm -fr work hello_world
+rm -fr work
