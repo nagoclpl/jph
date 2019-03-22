@@ -10,6 +10,7 @@ echo; python -V
 
 echo
 
-if [ -f hello_world.go ]; then
+if [ -f hello_world.tgz ]; then
+  tar xfz hello_world.tgz
   go run hello_world.go
 fi

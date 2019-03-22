@@ -2,6 +2,6 @@ FROM golang
 
 WORKDIR /app
 
-ADD . /app
+COPY . /app
 
 ENTRYPOINT ["./run.sh"]

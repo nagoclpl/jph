@@ -25,7 +25,7 @@ task chk(type: Exec) {
 }
 
 task del(dependsOn: chk) {
-  delete 'work'
+  delete 'temp', 'work'
 }
 
 task copyCommon(type: Copy, dependsOn: del) {
@@ -35,9 +35,7 @@ task copyCommon(type: Copy, dependsOn: del) {
 
 task copy(type: Copy, dependsOn: copyCommon) {
   if (prod=='yes') {
-    from 'src'
-    into 'work'
-    include '*.go'
+    from 'src' into 'work' include '*.tgz'
   }
   else {
     from 'test'
@@ -48,7 +46,12 @@ task copy(type: Copy, dependsOn: copyCommon) {
 
 task lbld(type: Exec, dependsOn: copy) {
   if (prod=='yes') {
-    commandLine 'go', 'build', 'work/hello_world.go'
+    mkdir 'temp'
+    copy {
+      from tarTree(resources.gzip('src/hello_world.tgz'))
+      into 'temp'
+    }
+    commandLine 'go', 'build', 'temp/hello_world.go'
   }
   else {
     commandLine 'date'
