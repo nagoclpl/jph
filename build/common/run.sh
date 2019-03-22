@@ -8,4 +8,8 @@ echo; ls
 
 echo; python -V
 
-echo; [ -f hello_world.go ] && go run hello_world.go
+echo
+
+if [ -f hello_world.go ]; then
+  go run hello_world.go
+fi
