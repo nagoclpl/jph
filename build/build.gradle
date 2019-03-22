@@ -1,24 +1,26 @@
 task chk(type: Exec) {
   commandLine 'date'
-    if (project.hasProperty("prod")) {
-      if (prod=='yes') {
-	println 'It is indeed prod!'
-      }
-      else if (prod=='no') {
-	println 'It is not prod'
-      }
-      else {
-	throw new GradleException('=> Need -Pprod=yes|no setting on the command-line')
-      }
+
+  if (project.hasProperty("prod")) {
+    if (prod=='yes') {
+      println 'It is indeed prod!'
+    }
+    else if (prod=='no') {
+      println 'It is not prod'
     }
     else {
-      throw new GradleException('==> Need -Pprod=yes|no setting on the command-line')
+      throw new GradleException('=> Need -Pprod=yes|no setting on the command-line')
     }
+  }
+  else {
+    throw new GradleException('==> Need -Pprod=yes|no setting on the command-line')
+  }
 
-    if (!project.hasProperty("repo")) {
-      throw new GradleException('==> Need -Prepo=xxxxxxxx/xxxxxxxx setting on the command-line')
-    }
-    doFirst { println '=== start chk ===' }
+  if (!project.hasProperty("repo")) {
+    throw new GradleException('==> Need -Prepo=xxxxxxxx/xxxxxxxx setting on the command-line')
+  }
+
+  doFirst { println '=== start chk ===' }
   doLast { println '===  end  chk ===' }
 }
 
@@ -32,26 +34,37 @@ task copyCommon(type: Copy, dependsOn: del) {
 }
 
 task copy(type: Copy, dependsOn: copyCommon) {
-  if (prod=='yes') from 'src' else from 'test'
-  into 'work'
-  include 'Dockerfile'
-  include 'run.sh'
-  include '*.go'
-  if (prod=='no') {
-    include '*.py'
-    include '*.robot'
+  if (prod=='yes') {
+    from 'src'
+    into 'work'
+    include '*.go'
+  }
+  else {
+    from 'test'
+    into 'work'
+    include '*.py', '*.robot'
   }
 }
 
 task lbld(type: Exec, dependsOn: copy) {
-  if (prod=='yes') commandLine 'go', 'build', 'work/hello_world.go' else commandLine 'date'
-    doFirst { println '=== start go build ===' }
+  if (prod=='yes') {
+    commandLine 'go', 'build', 'work/hello_world.go'
+  }
+  else {
+    commandLine 'date'
+  }
+  doFirst { println '=== start go build ===' }
   doLast { println '===  end  go build ===' }
 }
 
 task lrun(type: Exec, dependsOn: lbld) {
-  if (prod=='yes') commandLine './hello_world' else commandLine 'date'
-    doFirst { println '=== start running ===' }
+  if (prod=='yes') {
+    commandLine './hello_world'
+  }
+  else {
+    commandLine 'date'
+  }
+  doFirst { println '=== start running ===' }
   doLast { println '===  end  running ===' }
 }
 
@@ -69,6 +82,6 @@ task drun(type: Exec, dependsOn: dpush) {
 
 task start(type: Exec, dependsOn: drun) {
   commandLine 'date'
-    doFirst { println '=== start start ===' }
+  doFirst { println '=== start start ===' }
   doLast { println '===  end  start ===' }
 }
