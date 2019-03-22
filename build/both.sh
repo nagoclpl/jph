@@ -1,15 +1,25 @@
 #!/usr/bin/env bash
 
+# PROD
+
+echo
+echo "............"
+echo "... PROD ..."
+echo "............"
 echo
 
-for ans in yes no; do
+./gradlew -Pprod=yes -Prepo=thedockguy/gohw start
 
-  if [ "$ans" == "yes" ]; then
-    ./gradlew -Pprod=$ans -Prepo=thedockguy/gohw start
-    echo; ls -l temp work; echo
-  else
-    ./gradlew -Pprod=$ans -Prepo=thedockguy/gohw start $1
-    echo; ls -l temp work; echo
-  fi
+echo; ls -l temp work hello_world; echo
 
-done
+# TEST
+
+echo
+echo "............"
+echo "... TEST ..."
+echo "............"
+echo
+
+./gradlew -Pprod=no -Prepo=thedockguy/gohw start $1
+
+echo; ls -l work hello_world; echo
